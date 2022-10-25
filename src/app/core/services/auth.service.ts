@@ -29,9 +29,17 @@ export class AuthService {
     });
   }
 
+  // Return true when logged in
   getLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null;
+  }
+
+  // Sign in with google
+  GoogleLogin() {
+    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
+      this.router.navigate(['dashboard']); // TODO sign in redirect
+    })
   }
 
   // Logic for providers
@@ -39,11 +47,32 @@ export class AuthService {
     return this.fAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['']);
-        // TODO store user data on firestore
+        this.router.navigate(['dashboard']); // TODO sign in redirect
+        this.SetUserData(result.user);
       })
       .catch((error) => {
         window.alert(error);
       });
+  }
+
+  // Handle user data on firestore
+  SetUserData(user: any) {
+    const userRef: AngularFirestoreDocument<any> = this.firestore.doc(`users/${user.uid}`);
+
+    const userData: User = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      emailVerified: user.emailVerified,
+    }
+
+    return userRef.set(userData, { merge: true });
+  }
+
+  SignOut() {
+    return this.fAuth.signOut().then(() => {
+      localStorage.removeItem('user');
+      this.router.navigate(['sign-in']); // TODO signout redirect
+    });
   }
 }

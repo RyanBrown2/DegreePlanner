@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    projectId: 'degree-planner-37649',
+    appId: '1:1020105013174:web:80b90efde214a666cdf317',
+    storageBucket: 'degree-planner-37649.appspot.com',
+    locationId: '***REMOVED***',
+    apiKey: 'AIzaSyByrOpsH8F-RbQxAxB9bMlfXVswuln-_FY',
+    authDomain: 'degree-planner-37649.firebaseapp.com',
+    messagingSenderId: '1020105013174',
+    measurementId: 'G-BKNXS3CF0R',
+  }
 };
 
 /*
