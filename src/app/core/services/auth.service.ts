@@ -22,6 +22,9 @@ export class AuthService {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
+        if (this.router.url == '/sign-in') {
+          this.router.navigate(['dashboard']);
+        }
       } else {
         localStorage.setItem('user', 'null');
       }
@@ -30,9 +33,9 @@ export class AuthService {
   }
 
   // Return true when logged in
-  getLoggedIn(): boolean {
+  get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null;
+    return user !== null ? true : false;
   }
 
   // Sign in with google
@@ -47,8 +50,8 @@ export class AuthService {
     return this.fAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['dashboard']); // TODO sign in redirect
         this.SetUserData(result.user);
+        this.router.navigate(['dashboard']); // TODO sign in redirect
       })
       .catch((error) => {
         window.alert(error);
@@ -64,9 +67,9 @@ export class AuthService {
       email: user.email,
       displayName: user.displayName,
       emailVerified: user.emailVerified,
-    }
+    };
 
-    return userRef.set(userData, { merge: true });
+    return userRef.set(userData, { merge: true, });
   }
 
   SignOut() {
