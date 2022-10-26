@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,22 +15,31 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from 'src/environments/environment';
+
 import { NavbarComponent } from './core/components/navbar/navbar.component';
+
+// Features
+import { CourseSearchModule } from './features/course-search/course-search.module';
+import { AddCourseComponent } from './protected/add-course/add-course.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
     DashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    AddCourseComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    CourseSearchModule
   ],
   providers: [ AuthService ],
   bootstrap: [AppComponent]
