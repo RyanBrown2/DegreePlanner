@@ -1,20 +1,29 @@
+<div id="addCourse">
 <form [formGroup]="addCourseForm" (ngSubmit)="addCourse()">
     <div class="form-group">
         <label for="courseSubjectInput">Course Subject</label>
         <select id="courseSubjectInput" type="text" class="form-control" name="subject" formControlName="subject">
-            <option>ma</option>
-            <option>ph</option>
+            <option>Math</option>
+            <option>Physics</option>
         </select>
     </div>
     <div class="form-group">
         <label for="courseNumberInput">Course Number</label>
-        <input id="courseNumberInput" class="form-control" placeholder="number" name="number" formControlName="number">
+        <input id="courseNumberInput" class="form-control" placeholder="Number" name="number" formControlName="number">
+    </div>
+    <div class="form-group">
+        <label for="courseTitleInput">Course Title</label>
+        <input id="courseTitleInput" class="form-control" type="text" placeholder="Title" name="title" formControlName="title">
+    </div>
+    <div class="form-group">
+        <label for="courseDescriptionInput">Course Description</label>
+        <textarea id="courseDescriptionInput" class="form-control" rows="2" name="description" formControlName="description"></textarea>
     </div>
     <div class="form-group">
         <label for="coursePrereqs">Course Prereqs</label>
         <textarea id="coursePrereqs" class="form-control" rows="3" name="prereqs" formControlName="prereqs"></textarea>
     </div>
-    
     <button type="submit" class="btn btn-primary">Add Course</button>
 </form>
+</div>
 <app-course-search></app-course-search>

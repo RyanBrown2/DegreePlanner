@@ -4,12 +4,26 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/f
 import { Course } from 'src/app/core/services/courses/course';
 import { CourseService } from 'src/app/core/services/courses/course.service';
 
+const subjectTranslate = {
+  ma: "Math",
+  ph: "Physics"
+}
+
+function matchCourseKey(input: string): string {
+  const entries = Object.entries(subjectTranslate);
+  for (var x of entries) {
+    if (input == x[1]) {
+      return x[0];
+    }
+  }
+  return "";
+}
+
 @Component({
   selector: 'app-course-search',
   templateUrl: './course-search.component.html',
   styleUrls: ['./course-search.component.scss']
 })
-
 export class CourseSearchComponent implements OnInit {
 
   public courseSerchForm: FormGroup;
@@ -21,8 +35,8 @@ export class CourseSearchComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.courseSerchForm = this.formBuilder.group({
-      subject: new FormControl('all'),
-      number: new FormControl(''),
+      subject: new FormControl('All Subjects'),
+      search: new FormControl(''),
     });
 
   }
@@ -31,48 +45,17 @@ export class CourseSearchComponent implements OnInit {
     this.getCourses();
 
     this.courseSerchForm.valueChanges.subscribe(x => {
-      console.log(`Subject: ${x.subject} Number: ${x.number}`);
-      const subject = x.subject;
-      const number = x.number;
-
-      if (subject == 'all') {
-        if (number == "") {
-          this.courseService.getCourses()
-            .subscribe(courses => this.courses = courses);
-        } else {
-          this.courseService.getCourses()
-            .subscribe(courses => {
-              this.courses = courses.filter(c => c.number === number);
-            });
-        }
-      } else {
-        if (number == "") {
-          this.courseService.getCourses()
-            .subscribe(courses => {
-              this.courses = courses.filter(c => c.subject === subject);
-            });
-        } else {
-          this.courseService.getCourses()
-            .subscribe(courses => {
-              this.courses = courses.filter(c => c.id === subject+number);
-            });
-        }
-      }
+      var subject = matchCourseKey(x.subject);
+      var search = x.search;
+      // console.log(`Subject: ${subject} Search: ${search}`);
+      this.courseService.getCourses()
+        .subscribe(courses => {
+          this.courses = courses.filter(c => {
+            return c.id.includes(search) && c.subject.includes(subject);
+          });
+        });
 
     });
-  }
-
-  filterSubject(subject: string): void {
-    if (subject == "all") {
-      
-      return;
-    }
-    // this.courseService.getCourses()
-    //   .subscribe(courses => {
-    //     this.courses = courses.filter(c => c.subject === subject)
-    //   });
-    this.courses = this.courses.filter(c => c.subject === subject);
-    // this.courses = this.courseService.getSubjectCourses(subject);
   }
 
   getCourses(): void {

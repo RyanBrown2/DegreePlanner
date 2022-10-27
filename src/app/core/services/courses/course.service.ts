@@ -1,24 +1,29 @@
 import { Injectable } from '@angular/core';
 
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
-import { Course, CourseData } from './course';
+import { Course } from './course';
+
+const FbKeys = {
+  database: 'CourseData'
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
   
-  private courseCollection: AngularFirestoreCollection<CourseData>;
+  private courseCollection: AngularFirestoreCollection<Course>;
 
   courses: Observable<Course[]>;
 
   constructor(
     public firestore: AngularFirestore
   ) {
-    this.courseCollection = this.firestore.collection<CourseData>('CourseData');
+    this.courseCollection = this.firestore.collection<Course>(FbKeys.database);
+
     this.courses = this.courseCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Course;
@@ -27,8 +32,19 @@ export class CourseService {
     );
   }
 
-  addCourse(courseData: CourseData) {
-    this.courseCollection.doc(courseData.id).set(courseData);
+  queryCourses(subject: string, numbers: string) {
+    this.courses = this.firestore.collection<Course>(FbKeys.database, ref => {
+      return ref.orderBy('id').where('subject', '==', subject).where('number', '==', numbers).limit(30)
+      // return ref.orderBy('id').where('subject', '==', subject).limit(30)
+    }).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        return a.payload.doc.data() as Course;
+      }))
+    );
+  }
+
+  addCourse(course: Course) {
+    this.courseCollection.doc(course.id).set(course);
   }
 
   getCourses(): Observable<Course[]> {

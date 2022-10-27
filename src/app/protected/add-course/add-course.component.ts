@@ -4,6 +4,21 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/f
 import { Course } from 'src/app/core/services/courses/course';
 import { CourseService } from 'src/app/core/services/courses/course.service';
 
+const subjectTranslate = {
+  ma: "Math",
+  ph: "Physics"
+}
+
+function matchCourseKey(input: string): string {
+  const entries = Object.entries(subjectTranslate);
+  for (var x of entries) {
+    if (input == x[1]) {
+      return x[0];
+    }
+  }
+  return "";
+}
+
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
@@ -19,6 +34,8 @@ export class AddCourseComponent implements OnInit {
     this.addCourseForm = this.formBuilder.group({
       subject: new FormControl(''),
       number: new FormControl(''),
+      title: new FormControl(''),
+      description: new FormControl(''),
       prereqs: new FormControl('')
     });
   }
@@ -27,21 +44,19 @@ export class AddCourseComponent implements OnInit {
   }
 
   addCourse() {
-    const subject = this.addCourseForm.get('subject')?.value;
+    const subject = matchCourseKey(this.addCourseForm.get('subject')?.value);
     const number = this.addCourseForm.get('number')?.value;
-    const course = new Course(subject, number);
-    const prereqsText: string = this.addCourseForm.get('prereqs')?.value;
-
-    const prereqsSplit = prereqsText.split(",");
+    const title = this.addCourseForm.get('title')?.value;
+    const description = this.addCourseForm.get('description')?.value;
     
-    for (var prereq of prereqsSplit) {
-      prereq.replace(" ", "");
-      if (!course.prereqs.includes(prereq)) {
-        course.addPrereq(prereq);
-      }
-    }
+    const prereqsText: string = this.addCourseForm.get('prereqs')?.value;
+    prereqsText.replace(" ", "");
+    const prereqsSplit: string[] = prereqsText.split(",");
+    
+    const course = {id: subject+number, subject: subject, number: number, title: title, description: description, prereqs: prereqsSplit} as Course;
 
-    this.courseService.addCourse(Course.toData(course)); 
+    // console.log(course);
+    this.courseService.addCourse(course); 
   }
 
 }
