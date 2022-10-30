@@ -1,23 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { Course } from 'src/app/core/services/courses/course';
+import { Course, MatchCourseKey } from 'src/app/core/services/courses/course';
 import { CourseService } from 'src/app/core/services/courses/course.service';
-
-const subjectTranslate = {
-  ma: "Math",
-  ph: "Physics"
-}
-
-function matchCourseKey(input: string): string {
-  const entries = Object.entries(subjectTranslate);
-  for (var x of entries) {
-    if (input == x[1]) {
-      return x[0];
-    }
-  }
-  return "";
-}
 
 @Component({
   selector: 'app-course-search',
@@ -45,7 +30,7 @@ export class CourseSearchComponent implements OnInit {
     this.getCourses();
 
     this.courseSerchForm.valueChanges.subscribe(x => {
-      var subject = matchCourseKey(x.subject);
+      var subject = MatchCourseKey(x.subject);
       var search = x.search;
       // console.log(`Subject: ${subject} Search: ${search}`);
       this.courseService.getCourses()

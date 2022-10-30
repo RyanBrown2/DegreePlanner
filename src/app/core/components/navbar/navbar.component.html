@@ -15,15 +15,16 @@
         </div>
         <div class="offcanvas-body">
             <ul class="list-group">
-            <a class="list-group-item drawer-item" routerLink="dashboard" data-bs-toggle="offcanvas" data-bs-target="navDrawer">
+            <!-- <a class="list-group-item drawer-item" routerLink="dashboard" data-bs-toggle="offcanvas" data-bs-target="navDrawer"> -->
+            <a class="list-group-item drawer-item" routerLink="dashboard" data-bs-dismiss="offcanvas">
                 <i class="bi bi-house-door-fill"></i>
                 Main Page
             </a>
-            <a class="list-group-item drawer-item" routerLink="add-course" data-bs-toggle="offcanvas" data-bs-target="navDrawer">
+            <a class="list-group-item drawer-item" routerLink="add-course" data-bs-dismiss="offcanvas">
                 <i class="bi bi-plus"></i>
                 Add Course
             </a>
-            <a class="list-group-item drawer-item" (click)="authService.SignOut()" data-bs-toggle="offcanvas" data-bs-target="navDrawer">
+            <a class="list-group-item drawer-item" (click)="authService.SignOut()" data-bs-dismiss="offcanvas">
                 <i class="bi bi-box-arrow-in-right"></i>
                 Sign out
             </a>
