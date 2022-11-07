@@ -36,10 +36,15 @@ export class CourseSearchComponent implements OnInit {
       this.courseService.getCourses()
         .subscribe(courses => {
           this.courses = courses.filter(c => {
-            return c.id.includes(search) && c.subject.includes(subject);
+            try {
+              return c.searchText.toLowerCase().includes(search.toLowerCase()) && c.subject.includes(subject);
+            } catch (e) {
+              console.log(e);
+              return c.id.includes(search) && c.subject.includes(subject);
+            }
+            
           });
         });
-
     });
   }
 

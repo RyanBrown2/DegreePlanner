@@ -18,9 +18,9 @@
 <div *ngFor="let course of courses">
 	<div class="card courseSearchCard">
 		<div class="card-body">
-		<h5 class="card-title">{{course.id | uppercase}} {{course.title}}</h5>
+		<h5 class="card-title">{{course.searchText}}</h5>
 		<h6 class="card-subtitle mb-2 text-muted">Standing: N/A</h6>
-		<h6 class="card-subtitle mb-2 text-muted">Prereqs: {{course.prereqs.toString()| uppercase}}</h6>
+		<h6 class="card-subtitle mb-2 text-muted">Prereqs: {{course.prereqsText}}</h6>
 		</div>
 	</div>  
 </div>

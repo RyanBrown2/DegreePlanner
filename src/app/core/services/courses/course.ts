@@ -5,6 +5,8 @@ export interface Course {
     title: string;
     description: string;
     prereqs: string[];
+    prereqsText: string;
+    searchText: string;
 }
 
 export const SubjectTranslate = {

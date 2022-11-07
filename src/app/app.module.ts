@@ -21,6 +21,7 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
 // Features
 import { CourseSearchModule } from './features/course-search/course-search.module';
 import { AddCourseComponent } from './protected/add-course/add-course.component';
+import { AddDegreeComponent } from './protected/add-degree/add-degree/add-degree.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AddCourseComponent } from './protected/add-course/add-course.component'
     SignInComponent,
     DashboardComponent,
     NavbarComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    AddDegreeComponent,
   ],
   imports: [
     BrowserModule,
