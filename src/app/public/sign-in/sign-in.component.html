@@ -1,13 +1,22 @@
+<!-- <div class="navbar navbar-dark bg-faded fixed-top justify-content-start">
+	<a class="navbar-brand">Sign In</a>       
+</div> -->
+
 <div class="displayTable">
     <div class="displayTableCell">
       <div class="authBlock">
         <h3>Sign In</h3>
         <!-- Calling GoogleAuth Api from AuthService -->
         <div class="formGroup">
-          <button type="button" class="btn googleBtn" (click)="authService.GoogleLogin()">
-            <i class="fab fa-google-plus-g"></i>
-            Log in with Google
+          <button id="googleSignInButton" type="button" class="btn googleBtn" (click)="authService.GoogleLogin()">
+            <!-- <i class="fab fa-google-plus-g"></i>
+            Log in with Google -->
+			<a class="btn btn-outline-dark" role="button" style="text-transform:none">
+				<img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+				Login with Google
+			</a>
           </button>
+		  <button id="rosefireButton" type="button" class="btn" (click)="authService.RoseLogin()">Sign in with Rosefire</button>
         </div>
       </div>
       <div class="redirectToLogin">

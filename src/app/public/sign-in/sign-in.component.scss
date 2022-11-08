@@ -1,0 +1,22 @@
+@import "../../../styles.scss";
+
+.navbar {
+    background-color: $nav-color;
+    color: white;
+    font-weight: 500;
+}
+
+#googleSignInButton {
+	display: block;
+    margin: 30px auto;
+}
+
+#rosefireButton {
+    display: block;
+    margin: 20px auto;
+    color: white;
+    background: #800000;
+    font-size: 1.1em;
+    padding: 10px 30px;
+    border-radius: 5px;
+}

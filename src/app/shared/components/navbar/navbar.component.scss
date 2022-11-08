@@ -1,0 +1,20 @@
+@import "../../../../styles.scss";
+
+.navbar {
+    background-color: $nav-color;
+    color: white;
+    font-weight: 500;
+}
+
+.navbar > a > button {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+// drawer
+
+#navDrawer > .offcanvas-header {
+    background-color: $nav-color;
+    color: white;
+}

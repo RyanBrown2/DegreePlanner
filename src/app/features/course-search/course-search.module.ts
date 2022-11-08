@@ -1,20 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DisplayComponent } from './display/display.component';
 
-import { CourseSearchComponent } from './components/course-search/course-search.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
   declarations: [
-    CourseSearchComponent
+    DisplayComponent
   ],
-  exports: [
-    CourseSearchComponent
+  imports: [
+    CommonModule
   ]
 })
 export class CourseSearchModule { }
