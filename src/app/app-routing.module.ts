@@ -5,10 +5,10 @@ import { AuthGuard } from './core/guards/auth/auth.guard';
 
 // TODO setup lazy loading
 const routes: Routes = [
-	{ path: '', redirectTo: '/public', pathMatch: 'full'},
-	{ path: 'public', loadChildren: () => import('./public/public.module').then(m => m.PublicModule) },
-	{ path: 'shared', loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule) },
-	{ path: 'protected', loadChildren: () => import('./protected/protected.module').then(m => m.ProtectedModule), canActivate: [ AuthGuard ] }
+	{ path: '', redirectTo: '/sign-in', pathMatch: 'full'},
+	{ path: 'sign-in', loadChildren: () => import('./features/sign-in/sign-in.module').then(m => m.SignInModule) },
+	{ path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule) },
+	{ path: 'manage-courses', loadChildren: () => import('./features/manage-courses/manage-courses.module').then(m => m.ManageCoursesModule), canActivate: [AuthGuard] },	
 ];
 
 @NgModule({

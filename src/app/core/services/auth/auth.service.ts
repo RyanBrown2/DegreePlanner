@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, Optional, SkipSelf } from '@angular/core';
 import { User } from './user';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -18,14 +18,18 @@ export class AuthService {
 		public firestore: AngularFirestore,
 		public fAuth: AngularFireAuth,
 		public router: Router,
-		public ngZone: NgZone
+		public ngZone: NgZone,
+		@Optional() @SkipSelf() sharedService?: AuthService
 	) {
+		if (sharedService) {
+			throw new Error('AuthService is already loaded');
+		}
 		this.fAuth.authState.subscribe((user) => {
 		if (user) {
 			this.userData = user;
 			localStorage.setItem('user', JSON.stringify(this.userData));
-			if (this.router.url == '/public/sign-in') {
-				this.router.navigate(['protected']);
+			if (this.router.url == '/sign-in') {
+				this.router.navigate(['dashboard']);
 			}
 		} else {
 			localStorage.setItem('user', 'null');
@@ -43,7 +47,7 @@ export class AuthService {
 	// Sign in with google
 	GoogleLogin() {
 		return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-			this.router.navigate(['protected']); // TODO sign in redirect
+			this.router.navigate(['dashboard']);
 		})
 	}
 
@@ -65,7 +69,7 @@ export class AuthService {
 					}
 					
 					this.SetUserData(user);
-					this.router.navigate(['protected']);
+					this.router.navigate(['dashboard']);
 				}
 				// if (user != null) {
 				// 	user.email = rfUser.email;
@@ -91,7 +95,7 @@ export class AuthService {
 		.signInWithPopup(provider)
 		.then((result) => {
 			this.SetUserData(result.user);
-			this.router.navigate(['protected']); // TODO sign in redirect
+			this.router.navigate(['dashboard']);
 		})
 		.catch((error) => {
 			window.alert(error);
@@ -115,7 +119,7 @@ export class AuthService {
 	SignOut() {
 		return this.fAuth.signOut().then(() => {
 		localStorage.removeItem('user');
-		this.router.navigate(['public/sign-in']); // TODO signout redirect
+		this.router.navigate(['sign-in']); // TODO signout redirect
 		});
 	}
 }

@@ -14,14 +14,12 @@ import { environment } from 'src/environments/environment';
 import { CoreModule } from './core/core.module';
 import { AuthService } from './core/services/auth/auth.service';
 import { SharedModule } from './shared/shared.module';
-import { CourseSearchComponent } from './features/course-search/course-search.component';
 
 // Features
 
 @NgModule({
 	declarations: [
 		AppComponent,
-  CourseSearchComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -32,8 +30,8 @@ import { CourseSearchComponent } from './features/course-search/course-search.co
 		AngularFireAuthModule,
 		AngularFirestoreModule,
 		AngularFireDatabaseModule,
+		CoreModule,
 		SharedModule
-		// CoreModule
 	],
 	providers: [ AuthService ],
 	bootstrap: [AppComponent]

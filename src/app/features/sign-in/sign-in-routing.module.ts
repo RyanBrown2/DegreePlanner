@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProtectedComponent } from './protected.component';
+import { SignInComponent } from './sign-in.component';
 
-const routes: Routes = [{ path: '', component: ProtectedComponent }];
+const routes: Routes = [{ path: '', component: SignInComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProtectedRoutingModule { }
+export class SignInRoutingModule { }
