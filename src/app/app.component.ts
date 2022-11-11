@@ -15,7 +15,8 @@ export class AppComponent {
 
 	setMarginTop() {
 		if (this.authService.isLoggedIn) {
-			return '75px';
+			return '70px';
+			// return '2rem';
 		} else {
 			return '0px';
 		}

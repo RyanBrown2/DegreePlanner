@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Course } from 'src/app/core/services/course/course';
 
 @Component({
@@ -8,7 +8,10 @@ import { Course } from 'src/app/core/services/course/course';
 })
 export class CourseListComponent implements OnInit {
 
-	courses: Course[] = [];
+	@Input() title = '';
+
+	@Input() courses!: Course[];
+	// courses: Course[] = [];
 
 	constructor() { }
 

@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ComponentFactoryResolver, Directive, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Course } from 'src/app/core/services/course/course';
+import { CourseService } from 'src/app/core/services/course/course.service';
 import { CourseListComponent } from 'src/app/shared/components/course-list/course-list.component';
 
 @Component({
@@ -7,57 +8,21 @@ import { CourseListComponent } from 'src/app/shared/components/course-list/cours
   templateUrl: './manage-courses.component.html',
   styleUrls: ['./manage-courses.component.scss']
 })
-export class ManageCoursesComponent implements OnInit, AfterViewInit {
+export class ManageCoursesComponent implements OnInit {
 
-	@ViewChild('courseList')
-	set courseList(v: CourseListComponent) {
-		this.courseList = v;
-		const testCourse: Course = {
-			id: 'ma111',
-			subject: 'ma',
-			number: '111',
-			title: 'Calculus 1',
-			description: 'Calc 1 description',
-			prereqs: [],
-			prereqsText: '',
-			searchText:'search'
-		};
-		v.addCourse(testCourse);
-	}
+	courses: Course[] = [];
 
 	constructor(
+		private courseService: CourseService
 	) {
-		// this.courseList = new CourseListComponent();
 	}
 
 	ngOnInit(): void {
-		const testCourse: Course = {
-			id: 'ma111',
-			subject: 'ma',
-			number: '111',
-			title: 'Calculus 1',
-			description: 'Calc 1 description',
-			prereqs: [],
-			prereqsText: '',
-			searchText:'search'
-		};
-		this.courseList.addCourse(testCourse);
-		// this.courseList.addCourse(testCourse);
+		this.getCourses();
 	}
 
-	ngAfterViewInit(): void {
-		const testCourse: Course = {
-			id: 'ma111',
-			subject: 'ma',
-			number: '111',
-			title: 'Calculus 1',
-			description: 'Calc 1 description',
-			prereqs: [],
-			prereqsText: '',
-			searchText:'search'
-		};
-		this.courseList.addCourse(testCourse);
-		
+	getCourses(): void {
+		this.courseService.getCourses()
+			.subscribe(courses => this.courses = courses);
 	}
-
 }

@@ -29,8 +29,8 @@ export class CourseService {
 	
 		this.courses = this.courseCollection.snapshotChanges().pipe(
 			map(actions => actions.map(a => {
-			const data = a.payload.doc.data() as Course;
-			return data;
+				const data = a.payload.doc.data() as Course;
+				return data;
 			}))
 		);
 	}

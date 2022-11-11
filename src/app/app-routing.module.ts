@@ -8,7 +8,8 @@ const routes: Routes = [
 	{ path: '', redirectTo: '/sign-in', pathMatch: 'full'},
 	{ path: 'sign-in', loadChildren: () => import('./features/sign-in/sign-in.module').then(m => m.SignInModule) },
 	{ path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule) },
-	{ path: 'manage-courses', loadChildren: () => import('./features/manage-courses/manage-courses.module').then(m => m.ManageCoursesModule), canActivate: [AuthGuard] },	
+	{ path: 'manage-courses', loadChildren: () => import('./features/manage-courses/manage-courses.module').then(m => m.ManageCoursesModule), canActivate: [AuthGuard] },
+	{ path: 'DegreeManager', loadChildren: () => import('./features/degree-manager/degree-manager.module').then(m => m.DegreeManagerModule) },	
 ];
 
 @NgModule({

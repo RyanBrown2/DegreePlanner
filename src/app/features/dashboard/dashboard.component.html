@@ -1,1 +1,31 @@
-<p>dashboard works!</p>
+<div id="dashboard">
+	<div class="container">
+		<!-- <div id="degreeCredits" class="row"> -->
+		<div id="degreeCredits" class="row no-gutters">
+			<div>Degree Credit Overview</div>
+			<div class="col">
+				<app-credit-list
+					[id]="'required-credits'"
+					[title]="degreeReq.title"
+					[major]="degreeReq.major"
+					[masc]="degreeReq.masc"
+					[hssa]="degreeReq.hssa"
+					[tech]="degreeReq.tech"
+					[free]="degreeReq.free"
+				></app-credit-list>
+			</div>
+			<div class="col-1"></div>
+			<div class="col">
+				<app-credit-list
+					[id]="'current-credits'"
+					[title]="degreeCur.title"
+					[major]="degreeCur.major"
+					[masc]="degreeCur.masc"
+					[hssa]="degreeCur.hssa"
+					[tech]="degreeCur.tech"
+					[free]="degreeCur.free"
+				></app-credit-list>
+			</div>
+		</div>
+	</div>
+</div>
