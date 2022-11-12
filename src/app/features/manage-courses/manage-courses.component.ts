@@ -1,7 +1,6 @@
 import { Component, OnInit} from '@angular/core';
-import { Course } from 'src/app/core/services/course/course';
+import { Course } from 'src/app/shared/models/course.model';
 import { CourseService } from 'src/app/core/services/course/course.service';
-import { CourseListComponent } from 'src/app/shared/components/course-list/course-list.component';
 
 @Component({
   selector: 'app-manage-courses',

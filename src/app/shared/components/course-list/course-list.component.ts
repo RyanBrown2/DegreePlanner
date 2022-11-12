@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Course } from 'src/app/core/services/course/course';
+import { Course } from '../../models/course.model';
 
 @Component({
 	selector: 'app-course-list',
@@ -16,16 +16,16 @@ export class CourseListComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit(): void {
-		const testCourse: Course = {
-			id: 'ma111',
-			subject: 'ma',
-			number: '111',
-			title: 'Calculus 1',
-			description: 'Calc 1 description',
-			prereqs: [],
-			prereqsText: '',
-			searchText:'search'
-		};
+		// const testCourse: Course = {
+		// 	id: 'ma111',
+		// 	subject: 'ma',
+		// 	number: '111',
+		// 	title: 'Calculus 1',
+		// 	description: 'Calc 1 description',
+		// 	prereqs: [],
+		// 	prereqsText: '',
+		// 	searchText:'search'
+		// };
 		// this.addCourse(testCourse);
 	}
 

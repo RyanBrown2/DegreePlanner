@@ -4,7 +4,7 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Course } from './course';
+import { Course } from 'src/app/shared/models/course.model';
 
 const FbKeys = {
   database: 'CourseData'
