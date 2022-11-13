@@ -1,3 +1,4 @@
+import { CoursesRequirement } from "./course-requirement.model";
 import { Deserializable } from "./deserializable.model";
 
 export class Course implements Deserializable {
@@ -7,7 +8,8 @@ export class Course implements Deserializable {
     public number: string = '';
     public title: string = '';
     public description: string = '';
-    public prereqs: string[] = [];
+	public prereqs: CoursesRequirement = new CoursesRequirement();
+    // public prereqs: string[] = [];
     public prereqsText: string = '';
     public searchText: string = '';
 

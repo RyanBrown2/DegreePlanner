@@ -5,6 +5,7 @@ import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { Course } from 'src/app/shared/models/course.model';
+import { GetMockCourses } from './mock-courses';
 
 const FbKeys = {
   database: 'CourseData'
@@ -27,12 +28,13 @@ export class CourseService {
 		}
 		this.courseCollection = this.firestore.collection<Course>(FbKeys.database);
 	
-		this.courses = this.courseCollection.snapshotChanges().pipe(
-			map(actions => actions.map(a => {
-				const data = a.payload.doc.data() as Course;
-				return data;
-			}))
-		);
+		this.courses = GetMockCourses();
+		// this.courses = this.courseCollection.snapshotChanges().pipe(
+		// 	map(actions => actions.map(a => {
+		// 		const data = a.payload.doc.data() as Course;
+		// 		return data;
+		// 	}))
+		// );
 	}
   
 	queryCourses(subject: string, numbers: string) {

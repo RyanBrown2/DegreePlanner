@@ -1,7 +1,7 @@
 import { CoursesRequirement } from "./course-requirement.model";
 
 // MA336
-const ma336 = new CoursesRequirement();
+const ma336Req = new CoursesRequirement();
 
 // MA336 sub req
 const ma336SubReq = new CoursesRequirement();
@@ -9,11 +9,11 @@ ma336SubReq.setType('and');
 ma336SubReq.addCourse('ma221');
 ma336SubReq.addCourse('ma212');
 
-ma336.setType('or');
-ma336.addReq(ma336SubReq);
+ma336Req.setType('or');
+ma336Req.addReq(ma336SubReq);
 
 // MA438
-const ma438 = new CoursesRequirement();
+const ma438Req = new CoursesRequirement();
 
 // MA438 sub 1 req
 const ma438Sub1Req = new CoursesRequirement();
@@ -28,11 +28,11 @@ ma438Sub2Req.addCourse('ma222');
 ma438Sub2Req.addReq(ma438Sub1Req);
 
 // MA438 
-ma438.setType('all');
-ma438.addReq(ma438Sub2Req);
-ma438.setExtra('senior standing');
+ma438Req.setType('all');
+ma438Req.addReq(ma438Sub2Req);
+ma438Req.setExtra('senior standing');
 
 export const MOCK_COURSES_REQS = {
-	ma336: ma336,
-	ma438: ma438
+	ma336: ma336Req,
+	ma438: ma438Req
 }
