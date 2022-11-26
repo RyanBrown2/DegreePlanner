@@ -3,9 +3,11 @@ import { User } from './user';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument} from '@angular/fire/compat/firestore';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { Router } from '@angular/router';
-import "rosefire";
+import { RoseFire, RosefireUser } from './rosefire';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -13,17 +15,25 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
 	userData: any;
+	
+	rosefireKey: Observable<any>;	
 
 	constructor(
 		public firestore: AngularFirestore,
 		public fAuth: AngularFireAuth,
 		public router: Router,
 		public ngZone: NgZone,
+		private functions: AngularFireFunctions,
 		@Optional() @SkipSelf() sharedService?: AuthService
 	) {
 		if (sharedService) {
 			throw new Error('AuthService is already loaded');
 		}
+
+		const callable = functions.httpsCallable('rosefireKey');
+
+		this.rosefireKey = callable({ name: `${environment.rosefire}`});
+
 		this.fAuth.authState.subscribe((user) => {
 		if (user) {
 			this.userData = user;
@@ -53,7 +63,7 @@ export class AuthService {
 
 	// Sign in with rosefire
 	RoseLogin() {
-		Rosefire.signIn(environment.rosefire, (err, rfUser: RosefireUser) => {
+		RoseFire.signIn(environment.rosefire, (err: any, rfUser: RosefireUser) => {
 			if (err) {
 				console.error(err);
 				return;

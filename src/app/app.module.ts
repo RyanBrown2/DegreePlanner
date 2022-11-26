@@ -10,6 +10,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireFunctionsModule } from '@angular/fire/compat/functions';
 import { environment } from 'src/environments/environment';
 import { CoreModule } from './core/core.module';
 import { AuthService } from './core/services/auth/auth.service';
@@ -30,6 +31,7 @@ import { SharedModule } from './shared/shared.module';
 		AngularFireAuthModule,
 		AngularFirestoreModule,
 		AngularFireDatabaseModule,
+		AngularFireFunctionsModule,
 		CoreModule,
 		SharedModule
 	],

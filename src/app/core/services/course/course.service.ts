@@ -28,13 +28,13 @@ export class CourseService {
 		}
 		this.courseCollection = this.firestore.collection<Course>(FbKeys.database);
 	
-		this.courses = GetMockCourses();
-		// this.courses = this.courseCollection.snapshotChanges().pipe(
-		// 	map(actions => actions.map(a => {
-		// 		const data = a.payload.doc.data() as Course;
-		// 		return data;
-		// 	}))
-		// );
+		// this.courses = GetMockCourses();
+		this.courses = this.courseCollection.snapshotChanges().pipe(
+			map(actions => actions.map(a => {
+				const data = a.payload.doc.data() as Course;
+				return data;
+			}))
+		);
 	}
   
 	queryCourses(subject: string, numbers: string) {
