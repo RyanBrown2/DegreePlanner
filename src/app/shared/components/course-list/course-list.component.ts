@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Course } from '../../models/course.model';
 
 @Component({
@@ -9,28 +10,22 @@ import { Course } from '../../models/course.model';
 export class CourseListComponent implements OnInit {
 
 	@Input() title = '';
-
+	@Input() detailsEnabled: boolean = true;
 	@Input() courses!: Course[];
-	// courses: Course[] = [];
 
-	constructor() { }
+	constructor(
+		private router: Router
+	) { }
 
 	ngOnInit(): void {
-		// const testCourse: Course = {
-		// 	id: 'ma111',
-		// 	subject: 'ma',
-		// 	number: '111',
-		// 	title: 'Calculus 1',
-		// 	description: 'Calc 1 description',
-		// 	prereqs: [],
-		// 	prereqsText: '',
-		// 	searchText:'search'
-		// };
-		// this.addCourse(testCourse);
 	}
 
 	setCourses(courses: Course[]) {
 		this.courses = courses;
+	}
+
+	enableDetails(enable: boolean) {
+		this.detailsEnabled = enable;
 	}
 
 	addCourse(course: Course) {
@@ -44,6 +39,10 @@ export class CourseListComponent implements OnInit {
 			c === course;
 		});
 		delete this.courses[index];
+	}
+
+	gotoDetailPage(course: Course) {
+		this.router.navigate(['/course-details'], { queryParams: {id : course.id}});
 	}
 
 }

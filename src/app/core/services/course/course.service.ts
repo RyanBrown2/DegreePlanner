@@ -29,36 +29,75 @@ export class CourseService {
 		this.courseCollection = this.firestore.collection<Course>(FbKeys.database);
 	
 		// this.courses = GetMockCourses();
-		this.courses = this.courseCollection.snapshotChanges().pipe(
-			map(actions => actions.map(a => {
-				const data = a.payload.doc.data() as Course;
-				return data;
-			}))
-		);
+		this.courses = new Observable<Course[]>;
+		// this.courses = this.courseCollection.snapshotChanges().pipe(
+		// 	map(actions => actions.map(a => {
+		// 		const data = a.payload.doc.data() as Course;
+		// 		return data;
+		// 	}))
+		// );
 	}
-  
-	queryCourses(subject: string, numbers: string) {
-		this.courses = this.firestore.collection<Course>(FbKeys.database, ref => {
-			return ref.orderBy('id').where('subject', '==', subject).where('number', '==', numbers).limit(30)
-			// return ref.orderBy('id').where('subject', '==', subject).limit(30)
-		}).snapshotChanges().pipe(
-			map(actions => actions.map(a => {
-			return a.payload.doc.data() as Course;
-			}))
-		);
+
+	// This function is for querying courses from the collection given criteria
+	// This function does overwrite this.courses
+	queryCourses(subject?: string, number?: string) {
+		if (subject != null && number != null) {
+			this.courses = this.firestore.collection<Course>(FbKeys.database, ref => {
+				return ref.orderBy('id').where('subject', '==', subject).where('number', '==', number).limit(30);
+			}).snapshotChanges().pipe(
+				map(actions => actions.map(a => {
+				return a.payload.doc.data() as Course;
+				}))
+			);
+		} else if (subject != null && number == null) {
+			this.courses = this.firestore.collection<Course>(FbKeys.database, ref => {
+				return ref.orderBy('id').where('subject', '==', subject).limit(30);
+			}).snapshotChanges().pipe(
+				map(actions => actions.map(a => {
+				return a.payload.doc.data() as Course;
+				}))
+			);
+		} else if (subject == null && number != null) {
+			this.courses = this.firestore.collection<Course>(FbKeys.database, ref => {
+				return ref.orderBy('id').where('number', '==', number).limit(30);
+			}).snapshotChanges().pipe(
+				map(actions => actions.map(a => {
+				return a.payload.doc.data() as Course;
+				}))
+			);
+		} else {
+			this.courses = this.courseCollection.snapshotChanges().pipe(
+				map(actions => actions.map(a => {
+					const data = a.payload.doc.data() as Course;
+					return data;
+				}))
+			);
+		}
 	}
-  
+
+	// Add a course document to the collection
 	addCourse(course: Course) {
 		this.courseCollection.doc(course.id).set(course);
 	}
-  
+
+	// Get this.courses
 	getCourses(): Observable<Course[]> {
 		return this.courses;
 	}
   
-	getCourse(id: string) {
+	// get a course from the currently loaded courses
+	getCourse(id: string): Course | null {
 		this.courses.subscribe(courses => {
 			return courses.find(c => c.id === id);
 		});
+		return null;
 	}
+
+	// look up a specific course from the courses collection
+	// this is used for pages like course details where we only
+	// want to load data for one course
+	lookupCourseDocument(id: string) {
+		return this.courseCollection.doc<Course>(id);
+	}
+
 }

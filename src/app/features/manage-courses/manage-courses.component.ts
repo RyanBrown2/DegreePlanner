@@ -14,6 +14,7 @@ export class ManageCoursesComponent implements OnInit {
 	constructor(
 		private courseService: CourseService
 	) {
+		courseService.queryCourses();
 	}
 
 	ngOnInit(): void {
