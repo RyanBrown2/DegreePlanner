@@ -1,4 +1,9 @@
+<div *ngIf="authService.isLoggedIn">
 <app-navbar></app-navbar>
-<div class="page-container" [ngStyle]="{'margin-top': setMarginTop()}">
+</div>
+<!-- <div class="page-container" [ngStyle]="{'margin-top': setMarginTop()}"> -->
+<div class="page-container">
+    <div id="routerOutletContainer">
     <router-outlet></router-outlet>
+    </div>
 </div>
