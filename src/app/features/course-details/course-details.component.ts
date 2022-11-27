@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from 'src/app/core/services/course/course.service';
+import { CoursesRequirement, ReqType } from 'src/app/shared/models/course-requirement.model';
 import { Course } from 'src/app/shared/models/course.model';
 
 @Component({
@@ -14,6 +16,8 @@ export class CourseDetailsComponent implements OnInit {
 	validId: boolean;
 
 	course: Course;
+
+	prereqHTML: string = '';
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
@@ -29,17 +33,59 @@ export class CourseDetailsComponent implements OnInit {
 			var tempId = params['id'];
 			if (tempId != null) {
 				this.courseId = tempId;
-				this.courseService.lookupCourseDocument(this.courseId).snapshotChanges().subscribe(c => {
-					var tempCourse = c.payload.data() as Course;
-					if (tempCourse != null) {
-						this.course = tempCourse;
+				this.courseService.lookupCourseDocument(this.courseId).subscribe(course => {
+					if (course != null) {
+						this.course = course;
 						this.validId = true;
+						if (this.course.prereqs != new CoursesRequirement) {
+							this.prereqHTML = this.processPrereqs(this.course.prereqs);
+						}
 					}
+				// 	var tempCourse = c.payload.data();
+				// 	if (tempCourse != null) {
+				// 		this.course = tempCourse;
+				// 		this.validId = true;
+				// 		if (this.course.prereqs != new CoursesRequirement) {
+				// 			this.prereqHTML = this.processPrereqs(this.course.prereqs);
+				// 		}
+				// 	}
 				});
 			} else {
 				this.validId = false;
 			}
 		});
+
+	}
+
+	processPrereqs(prereqs: CoursesRequirement): string {
+		var elementString: string = '';
+		
+		console.log(prereqs);
+		if (prereqs.type == ReqType.All) {
+			elementString += `<div>All the following must be met:</div>`;
+		} else if (prereqs.type == ReqType.Any) {
+			elementString += `<div>One the following must be met:</div>`;
+		}
+
+		prereqs.courses.forEach(course => {
+			elementString += `<div>${course}</div>`;
+		});
+
+		prereqs.reqs.forEach(req => {
+			elementString += `<div>${this.processPrereqs(req)}</div>`;
+		});
+
+		if (prereqs.extra != '') {
+			elementString += `<div>${prereqs.extra}</div>`;
+		}
+
+		// return this.sanitizer.bypassSecurityTrustHtml(elementString);
+		return elementString;
+	}
+
+	hasPrereqs() {
+		return true;
 	}
 
 }
+

@@ -1,30 +1,13 @@
-<div id="courseDetailsContainer" class="border">
-    <div *ngIf="validId">
-        <p>{{course.searchText}}</p>
-        <div class="container border">
-            <div class="row justify-content-around">
-                <div class="col">
-                    Credit Hours: &lt;TODO&gt;
-                </div>
-                <div class="col">
-                    Term Available: &lt;TODO&gt;
-                </div>
-                <div class="col">
-                    Graduate Studies Eligible: &lt;TODO&gt;
-                </div>
-            </div>
-            <div class="row justify-content-around">
-                <div class="col">
-                    Prerequisites: &lt;TODO&gt;
-                </div>
-                <div class="col">
-                    Corequisites: &lt;TODO&gt;
-                </div>
-            </div>
-        </div>
-        <p>{{course.description}}</p>
+<div id="courseDetailsContainer" *ngIf="validId">
+    <h1>{{course.searchText}}</h1>
+    <div id="specifics" class="border rounded">
+        <div>Credit Hours: todo</div>
+        <div>Terms Available: todo</div>
+        <div>Graduate Studies Eligible: todo</div>
     </div>
-    <div *ngIf="!validId">
-        <h1>Invalid Course Id</h1>
+
+    <div id="prereqs" class="border rounded" [innerHTML]="prereqHTML" *ngIf="this.hasPrereqs()">
     </div>
+
+    <p>{{course.description}}</p>
 </div>

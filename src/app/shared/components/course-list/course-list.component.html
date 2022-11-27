@@ -1,10 +1,20 @@
-<p>{{title}}</p>
-<div *ngFor="let course of courses">
-	<div class="card courseSearchCard" (click)="detailsEnabled ? gotoDetailPage(course): false">
-		<div class="card-body">
-		<h5 class="card-title">{{course.searchText}}</h5>
-		<h6 class="card-subtitle mb-2 text-muted">Standing: N/A</h6>
-		<h6 class="card-subtitle mb-2 text-muted">Prereqs: {{course.prereqsText}}</h6>
+<p *ngIf="showTitle">{{title}}</p>
+<div class="container">
+	<div *ngFor="let course of courses">
+		<div class="row no-gutters" (click)="detailsEnabled ? gotoDetailPage(course): false">
+			<div class="col-4">
+				{{course.id}}
+			</div>
+			<div class="col">
+				{{course.title}}
+			</div>
 		</div>
-	</div>  
+		<!-- <div class="card courseSearchCard" (click)="detailsEnabled ? gotoDetailPage(course): false">
+			<div class="card-body">
+			<h5 class="card-title">{{course.searchText}}</h5>
+			<h6 class="card-subtitle mb-2 text-muted">Standing: N/A</h6>
+			<h6 class="card-subtitle mb-2 text-muted">Prereqs: {{course.prereqsText}}</h6>
+			</div>
+		</div>   -->
+	</div>
 </div>

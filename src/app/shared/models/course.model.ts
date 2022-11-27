@@ -14,7 +14,14 @@ export class Course implements Deserializable {
     public searchText: string = '';
 
 	deserialize(input: any): this {
-		return Object.assign(this, input);
+		if (typeof input === 'string') {
+			console.warn('Trying to deserialize a course with a string, should be a json array');
+		}
+		Object.assign(this, input);
+        
+        this.prereqs = new CoursesRequirement().deserialize(JSON.parse(input.prereqs));
+        
+        return this;
 	}
 
 	

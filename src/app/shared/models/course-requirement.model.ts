@@ -30,10 +30,14 @@ export class CoursesRequirement implements Deserializable {
 		this.extra = extra;
 	}
 
+	// when this function gets called by
 	deserialize(input: any): this {
+		if (typeof input === 'string') {
+			console.warn('Trying to deserialize a course requirement with a string, should be a json array');
+		}
 		Object.assign(this, input);
-
-		this.reqs = input.reqs.map((req: CoursesRequirement) => new CoursesRequirement().deserialize(req));
+		
+		this.reqs = input.reqs.map((req: any) => new CoursesRequirement().deserialize(req));
 
 		return this;
 	}

@@ -1,6 +1,16 @@
 #courseDetailsContainer {
-    outline-style: block;
+	margin: 1em;
+    // outline-style: block;
+
+	#specifics {
+		div {
+			font-size: 16pt;
+			text-align: center;
+		}
+	}
 }
+
+
 
 .no-gutters {
 	margin-right: 0;

@@ -46,7 +46,8 @@ export class CourseService {
 				return ref.orderBy('id').where('subject', '==', subject).where('number', '==', number).limit(30);
 			}).snapshotChanges().pipe(
 				map(actions => actions.map(a => {
-				return a.payload.doc.data() as Course;
+				// return a.payload.doc.data() as Course;
+					return new Course().deserialize(a.payload.doc.data());
 				}))
 			);
 		} else if (subject != null && number == null) {
@@ -54,7 +55,8 @@ export class CourseService {
 				return ref.orderBy('id').where('subject', '==', subject).limit(30);
 			}).snapshotChanges().pipe(
 				map(actions => actions.map(a => {
-				return a.payload.doc.data() as Course;
+				// return a.payload.doc.data() as Course;
+					return new Course().deserialize(a.payload.doc.data());
 				}))
 			);
 		} else if (subject == null && number != null) {
@@ -62,14 +64,17 @@ export class CourseService {
 				return ref.orderBy('id').where('number', '==', number).limit(30);
 			}).snapshotChanges().pipe(
 				map(actions => actions.map(a => {
-				return a.payload.doc.data() as Course;
+				return new Course().deserialize(a.payload.doc.data());
+
+				// return a.payload.doc.data() as Course;
 				}))
 			);
 		} else {
 			this.courses = this.courseCollection.snapshotChanges().pipe(
 				map(actions => actions.map(a => {
-					const data = a.payload.doc.data() as Course;
-					return data;
+					return new Course().deserialize(a.payload.doc.data());
+					// const data = a.payload.doc.data() as Course;
+					// return data;
 				}))
 			);
 		}
@@ -96,8 +101,12 @@ export class CourseService {
 	// look up a specific course from the courses collection
 	// this is used for pages like course details where we only
 	// want to load data for one course
-	lookupCourseDocument(id: string) {
-		return this.courseCollection.doc<Course>(id);
+	lookupCourseDocument(id: string): Observable<Course> {
+		return this.courseCollection.doc<Course>(id).snapshotChanges().pipe(
+			map(a => {
+				return new Course().deserialize(a.payload.data());
+			})
+		);
 	}
 
 }

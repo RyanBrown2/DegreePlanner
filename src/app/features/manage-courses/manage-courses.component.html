@@ -1,3 +1,7 @@
 <div id="manage-courses">
-    <app-course-list [courses]="courses"></app-course-list>
+    <div *ngIf="this.isMobile()">
+        <app-course-list [courses]="courses"></app-course-list>
+    </div>
+
+
 </div>

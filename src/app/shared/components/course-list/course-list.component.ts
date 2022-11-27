@@ -10,6 +10,7 @@ import { Course } from '../../models/course.model';
 export class CourseListComponent implements OnInit {
 
 	@Input() title = '';
+	@Input() showTitle = false;
 	@Input() detailsEnabled: boolean = true;
 	@Input() courses!: Course[];
 

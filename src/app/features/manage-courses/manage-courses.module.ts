@@ -12,7 +12,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     ManageCoursesRoutingModule,
-	SharedModule
+    SharedModule
   ]
 })
 export class ManageCoursesModule { }
