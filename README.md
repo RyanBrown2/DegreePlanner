@@ -1,5 +1,7 @@
 # DegreePlanner
 
+[Trello](https://trello.com/b/5azILvS6/degree-planner)
+
 [App Mock](https://www.figma.com/file/K0sNVr6eqEi1K9epah7Gt4/Degree-Planner?node-id=0%3A1&t=AB3KTZ9B27FMM2R6-1)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.

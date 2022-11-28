@@ -14,20 +14,24 @@ export class CoursesRequirement implements Deserializable {
 	public courses: string[] = [];
 	public extra: string = '';
 
-	setType(type: string) {
+	setType(type: string): CoursesRequirement {
 		this.type = type;
+		return this;
 	}
 
-	addReq(req: CoursesRequirement) {
+	addReq(req: CoursesRequirement): CoursesRequirement {
 		this.reqs.push(req);
+		return this;
 	}
 
-	addCourse(course: string) {
+	addCourse(course: string): CoursesRequirement {
 		this.courses.push(course);
+		return this;
 	}
 
-	setExtra(extra: string) {
+	setExtra(extra: string): CoursesRequirement {
 		this.extra = extra;
+		return this;
 	}
 
 	// when this function gets called by
@@ -40,6 +44,12 @@ export class CoursesRequirement implements Deserializable {
 		this.reqs = input.reqs.map((req: any) => new CoursesRequirement().deserialize(req));
 
 		return this;
+	}
+
+	// this is used to check if a course has zero prereqs
+	static isEmpty(prereq: CoursesRequirement): boolean {
+		return JSON.stringify(prereq) === '{"type":"all","reqs":[],"courses":[],"extra":"none"}';
+
 	}
 }
 

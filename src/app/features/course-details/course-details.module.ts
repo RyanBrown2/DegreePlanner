@@ -12,6 +12,6 @@ import { CourseDetailsComponent } from './course-details.component';
   imports: [
     CommonModule,
     CourseDetailsRoutingModule
-  ]
+  ],
 })
 export class CourseDetailsModule { }

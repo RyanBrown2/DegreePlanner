@@ -8,9 +8,31 @@
 			text-align: center;
 		}
 	}
+
+	#prereqs {
+		margin: 1em 0;
+		.coursePrereq{
+			// div {
+			margin-left: 5%;
+			margin-right: 5%;
+			// }
+		}
+		.subPrereq{
+			// div {
+			margin-left: 5%;
+			margin-right: 5%;
+			// }
+		}
+		.extraPrereq{
+			// div {
+			margin-left: 5%;
+			margin-right: 5%;
+			// }
+		}
+	}
+
+
 }
-
-
 
 .no-gutters {
 	margin-right: 0;

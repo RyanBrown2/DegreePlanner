@@ -6,7 +6,7 @@
         <div>Graduate Studies Eligible: todo</div>
     </div>
 
-    <div id="prereqs" class="border rounded" [innerHTML]="prereqHTML" *ngIf="this.hasPrereqs()">
+    <div id="prereqs" class="border rounded" [innerHTML]="prereqHTML " *ngIf="hasPrereqs">
     </div>
 
     <p>{{course.description}}</p>

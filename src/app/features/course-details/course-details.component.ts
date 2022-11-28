@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from 'src/app/core/services/course/course.service';
@@ -8,7 +8,8 @@ import { Course } from 'src/app/shared/models/course.model';
 @Component({
 	selector: 'app-course-details',
 	templateUrl: './course-details.component.html',
-	styleUrls: ['./course-details.component.scss']
+	styleUrls: ['./course-details.component.scss'],
+	encapsulation: ViewEncapsulation.None,
 })
 export class CourseDetailsComponent implements OnInit {
 
@@ -17,11 +18,13 @@ export class CourseDetailsComponent implements OnInit {
 
 	course: Course;
 
-	prereqHTML: string = '';
+	prereqHTML: any;
+	hasPrereqs: boolean = false;
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
-		private courseService: CourseService
+		protected sanitizer: DomSanitizer,
+		private courseService: CourseService,
 	) {
 		this.courseId = "";
 		this.validId = false;
@@ -37,18 +40,11 @@ export class CourseDetailsComponent implements OnInit {
 					if (course != null) {
 						this.course = course;
 						this.validId = true;
-						if (this.course.prereqs != new CoursesRequirement) {
-							this.prereqHTML = this.processPrereqs(this.course.prereqs);
+						if (!CoursesRequirement.isEmpty(this.course.prereqs)) {
+							this.hasPrereqs = true;
+							this.prereqHTML = `<div>Prereqs:</div><div class="prereqContainer">${this.processPrereqs(this.course.prereqs)}</div>`;
 						}
 					}
-				// 	var tempCourse = c.payload.data();
-				// 	if (tempCourse != null) {
-				// 		this.course = tempCourse;
-				// 		this.validId = true;
-				// 		if (this.course.prereqs != new CoursesRequirement) {
-				// 			this.prereqHTML = this.processPrereqs(this.course.prereqs);
-				// 		}
-				// 	}
 				});
 			} else {
 				this.validId = false;
@@ -57,35 +53,41 @@ export class CourseDetailsComponent implements OnInit {
 
 	}
 
-	processPrereqs(prereqs: CoursesRequirement): string {
+	processPrereqs(prereqs: CoursesRequirement): any {
+
+		const prereqElement = document.createElement('div');
+
 		var elementString: string = '';
 		
 		console.log(prereqs);
 		if (prereqs.type == ReqType.All) {
-			elementString += `<div>All the following must be met:</div>`;
+			elementString += `All the following must be met:`;
 		} else if (prereqs.type == ReqType.Any) {
 			elementString += `<div>One the following must be met:</div>`;
+		} else {
+			elementString += `<div>The following must be met:</div>`;
 		}
 
+		
+		// elementString += '<div class="prereqsContainer">';
+
 		prereqs.courses.forEach(course => {
-			elementString += `<div>${course}</div>`;
+			elementString += `<div class="coursePrereq">${course}</div>`;
 		});
 
 		prereqs.reqs.forEach(req => {
-			elementString += `<div>${this.processPrereqs(req)}</div>`;
+			// elementString += `<div class="subPrereq">${this.processPrereqs(req)}</div>`;
+			elementString += `<div class="subPrereq border rounded">${this.processPrereqs(req)}</div>`;
 		});
 
-		if (prereqs.extra != '') {
-			elementString += `<div>${prereqs.extra}</div>`;
+		if (prereqs.extra !== '') {
+			elementString += `<div class="extraPrereq">${prereqs.extra}</div>`;
 		}
 
-		// return this.sanitizer.bypassSecurityTrustHtml(elementString);
+		// elementString += '</div>';
+
+		console.log(elementString);
 		return elementString;
 	}
-
-	hasPrereqs() {
-		return true;
-	}
-
 }
 
