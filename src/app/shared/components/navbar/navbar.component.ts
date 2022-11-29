@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
@@ -8,11 +8,25 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(
-	public authService: AuthService
-  ) { }
+	@Input() extraIcon: string = '';
+	@Output() extraClicked = new EventEmitter();
 
-  ngOnInit(): void {
-  }
+	showExtra: boolean = false;
+	extraHTML: string = '';
+
+	constructor(
+		public authService: AuthService
+	) { }
+
+	ngOnInit(): void {
+		if (this.extraIcon !== '') {
+			this.showExtra = true;
+			this.extraHTML = `<i class="bi ${this.extraIcon}"></i>`;
+		}
+	}
+
+	onExtraClick() {
+		this.extraClicked.emit();
+	}
 
 }

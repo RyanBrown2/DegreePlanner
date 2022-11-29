@@ -1,13 +1,17 @@
 <!-- <div *ngIf="authService.isLoggedIn" > -->
 <div id="navbarContainer">
     <div class="navbar navbar-dark bg-faded fixed-top justify-content-start">
-        <a class="navbar-brand">
-        <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#navDrawer">
-            <i class="bi bi-list"></i>
-            Degree Planner
-        </button>
-        </a>       
+		<a class="navbar-brand">
+			<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#navDrawer">
+				<i class="bi bi-list"></i>
+				Degree Planner
+			</button>
+		</a>   
+		<ul class="navbar-nav ms-auto" *ngIf="showExtra">
+			<i class="bi bi-three-dots-vertical"></i>
+		</ul>
     </div>
+	
 
     <div id="navDrawer" class="offcanvas offcanvas-start" tabindex="-1" aria-labelledby="navDrawerTitle">
         <div class="offcanvas-header">

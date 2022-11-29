@@ -1,8 +1,6 @@
 <div id="manage-courses">
-    <div>
-    <!-- <div *ngIf="this.isMobile()">  --> <!-- Need to create desktop view-->
+    <div *ngIf="this.isMobile()">  <!-- Need to create desktop view-->
         <app-course-list [courses]="courses"></app-course-list> 
     </div>
-
 
 </div>
