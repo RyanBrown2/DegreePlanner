@@ -1,6 +1,15 @@
 <div id="manage-courses">
     <div *ngIf="this.isMobile()">  <!-- Need to create desktop view-->
-        <app-course-list [courses]="courses"></app-course-list> 
+		<div *ngFor="let course of courses">
+			<div class="row no-gutters" (click)="gotoDetailPage(course)">
+				<div class="col-4">
+					{{course.id}}
+				</div>
+				<div class="col">
+					{{course.title}}
+				</div>
+			</div>
+		</div>
     </div>
 
 </div>

@@ -1,32 +1,27 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-
-	@Input() extraIcon: string = '';
-	@Output() extraClicked = new EventEmitter();
+	
+	extraIcon: string = '';
 
 	showExtra: boolean = false;
 	extraHTML: string = '';
 
 	constructor(
-		public authService: AuthService
+		public authService: AuthService,
 	) { }
 
 	ngOnInit(): void {
-		if (this.extraIcon !== '') {
-			this.showExtra = true;
-			this.extraHTML = `<i class="bi ${this.extraIcon}"></i>`;
-		}
+	
 	}
 
-	onExtraClick() {
-		this.extraClicked.emit();
-	}
 
 }

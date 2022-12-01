@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CourseService } from 'src/app/core/services/course/course.service';
 import { CoursesRequirement, ReqType } from 'src/app/shared/models/course-requirement.model';
 import { Course } from 'src/app/shared/models/course.model';
@@ -11,7 +12,7 @@ import { Course } from 'src/app/shared/models/course.model';
 	styleUrls: ['./course-details.component.scss'],
 	encapsulation: ViewEncapsulation.None,
 })
-export class CourseDetailsComponent implements OnInit {
+export class CourseDetailsComponent implements OnInit, OnDestroy {
 
 	courseId: string;
 	validId: boolean;
@@ -20,6 +21,8 @@ export class CourseDetailsComponent implements OnInit {
 
 	prereqHTML: any;
 	hasPrereqs: boolean = false;
+
+	navbarOutText: string = '';
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
@@ -43,6 +46,7 @@ export class CourseDetailsComponent implements OnInit {
 						if (!CoursesRequirement.isEmpty(this.course.prereqs)) {
 							this.hasPrereqs = true;
 							this.prereqHTML = `<div>Prereqs:</div><div class="prereqContainer">${this.processPrereqs(this.course.prereqs)}</div>`;
+							// this.navbarService.sendInput(`<div>test</div>`);
 						}
 					}
 				});
@@ -50,7 +54,10 @@ export class CourseDetailsComponent implements OnInit {
 				this.validId = false;
 			}
 		});
+	}
 
+	ngOnDestroy(): void {
+		// this.navbarSubscription.unsubscribe();
 	}
 
 	processPrereqs(prereqs: CoursesRequirement): any {
@@ -59,7 +66,7 @@ export class CourseDetailsComponent implements OnInit {
 
 		var elementString: string = '';
 		
-		console.log(prereqs);
+		// console.log(prereqs);
 		if (prereqs.type == ReqType.All) {
 			elementString += `All the following must be met:`;
 		} else if (prereqs.type == ReqType.Any) {
@@ -86,7 +93,7 @@ export class CourseDetailsComponent implements OnInit {
 
 		// elementString += '</div>';
 
-		console.log(elementString);
+		// console.log(elementString);
 		return elementString;
 	}
 }

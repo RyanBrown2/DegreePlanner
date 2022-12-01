@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit} from '@angular/core';
 import { Course } from 'src/app/shared/models/course.model';
 import { CourseService } from 'src/app/core/services/course/course.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-courses',
@@ -14,7 +15,8 @@ export class ManageCoursesComponent implements OnInit {
 	innerWidth: number;
 
 	constructor(
-		private courseService: CourseService
+		private courseService: CourseService,
+		private router: Router
 	) {
 		this.innerWidth = window.innerWidth;		
 	}
@@ -31,6 +33,11 @@ export class ManageCoursesComponent implements OnInit {
 
 	isMobile(): boolean {
 		return (this.innerWidth <= 768);
+	}
+	
+	gotoDetailPage(course: Course) {
+		// this.router.navigate(['/course-details'], { queryParams: {id : course.id}});
+		this.router.navigate([{outlets: {primary: 'course-details', nav: ['course-details']}}], { queryParams: {id : course.id}});
 	}
 
 	@HostListener('window:resize', ['$event'])

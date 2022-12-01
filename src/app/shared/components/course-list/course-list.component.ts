@@ -43,7 +43,8 @@ export class CourseListComponent implements OnInit {
 	}
 
 	gotoDetailPage(course: Course) {
-		this.router.navigate(['/course-details'], { queryParams: {id : course.id}});
+		// this.router.navigate(['/course-details'], { queryParams: {id : course.id}});
+		this.router.navigate([{outlets: {primary: 'course-details', nav: ['course-details']}}], { queryParams: {id : course.id}});
 	}
 
 }

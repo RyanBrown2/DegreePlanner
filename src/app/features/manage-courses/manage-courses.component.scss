@@ -1,3 +1,27 @@
 #manage-courses {
     padding: .5rem 1rem;
 }
+
+
+.row {
+	// border: 1px;
+	// border-style: solid;
+	// border-radius: 0.5em;
+
+	margin: 0.1em 0;
+	div {
+		// border: 1px;
+		// border-style: solid;
+	}
+}
+
+.no-gutters {
+	margin-right: 0;
+	margin-left: 0;
+  
+	> .col,
+	> [class*="col-"] {
+		padding-right: 0;
+		padding-left: 0;
+	}
+}
