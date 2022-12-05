@@ -31,7 +31,6 @@
 .modal-header {
 	background-color: $nav-color;
 
-	margin-right: 0;
 	
 	#reportCourseModalLabel {
 		color: white;
@@ -39,7 +38,6 @@
 }
 
 .modal-body {
-	// color: white;
 	button {
 		background-color: $nav-color;
 		color: white;
@@ -48,12 +46,11 @@
 	.active {
 		background-color: #705C2E;
 	}
+}
 
-	// button:active {
-	// 	background-color: blue;
-	// }
-
-	// button: {
-
-	// }
+.modal-footer {
+	#courseReportSubmit {
+		background-color: $nav-color;
+		color: white;
+	}
 }

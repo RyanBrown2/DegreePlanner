@@ -3,6 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CourseService } from 'src/app/core/services/course/course.service';
+import { NavbarService } from 'src/app/core/services/navbar/navbar.service';
 import { CoursesRequirement, ReqType } from 'src/app/shared/models/course-requirement.model';
 import { Course } from 'src/app/shared/models/course.model';
 
@@ -22,16 +23,21 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 	prereqHTML: any;
 	hasPrereqs: boolean = false;
 
-	navbarOutText: string = '';
+	navbarSubscription: Subscription;
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		protected sanitizer: DomSanitizer,
 		private courseService: CourseService,
+		private navbarService: NavbarService,
 	) {
 		this.courseId = "";
 		this.validId = false;
 		this.course = new Course();
+
+		this.navbarSubscription = navbarService.courseReported$.subscribe(reportString => {
+			this.processCourseReport(reportString);
+		});
 	}
 
 	ngOnInit(): void {
@@ -46,7 +52,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 						if (!CoursesRequirement.isEmpty(this.course.prereqs)) {
 							this.hasPrereqs = true;
 							this.prereqHTML = `<div>Prereqs:</div><div class="prereqContainer">${this.processPrereqs(this.course.prereqs)}</div>`;
-							// this.navbarService.sendInput(`<div>test</div>`);
 						}
 					}
 				});
@@ -57,7 +62,11 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		// this.navbarSubscription.unsubscribe();
+		this.navbarSubscription.unsubscribe();
+	}
+
+	processCourseReport(reportString: string) {
+		this.courseService.reportCourse(this.course, reportString);
 	}
 
 	processPrereqs(prereqs: CoursesRequirement): any {

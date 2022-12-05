@@ -8,7 +8,8 @@ import { Course } from 'src/app/shared/models/course.model';
 import { GetMockCourses } from './mock-courses';
 
 const FbKeys = {
-  database: 'CourseData'
+  database: 'CourseData',
+  reportDatabase: 'ReportedCourses'
 }
 
 @Injectable({
@@ -16,6 +17,7 @@ const FbKeys = {
 })
 export class CourseService {
 	private courseCollection: AngularFirestoreCollection<Course>;
+	private reportCollection: AngularFirestoreCollection;
 
 	courses: Observable<Course[]>;
   
@@ -27,6 +29,7 @@ export class CourseService {
 			throw new Error('CourseService is alreaded loaded');
 		}
 		this.courseCollection = this.firestore.collection<Course>(FbKeys.database);
+		this.reportCollection = this.firestore.collection(FbKeys.reportDatabase);
 	
 		// this.courses = GetMockCourses();
 		this.courses = new Observable<Course[]>;
@@ -107,6 +110,29 @@ export class CourseService {
 				return new Course().deserialize(a.payload.data());
 			})
 		);
+	}
+
+	reportCourse(course: Course, reportString: string) {
+
+		const reportData = JSON.parse(reportString);
+
+		let doc: AngularFirestoreDocument = this.reportCollection.doc(course.id);
+
+		doc.get().subscribe(ref => {
+			if (!ref.exists) {
+				doc.set(reportData);
+			} else {
+				const data = ref.data();
+				let title = data?.['title'];
+				if (!title) {
+					doc.update({title: reportData.title});
+				}
+				let prereqs = data?.['prereqs'];
+				if(!prereqs) {
+					doc.update({prereqs: reportData.prereqs});
+				}
+			}
+		});
 	}
 
 }
