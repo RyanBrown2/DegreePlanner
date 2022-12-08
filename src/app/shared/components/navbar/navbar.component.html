@@ -1,52 +1,45 @@
-<!-- <div id="navbarContainer" *ngIf="authService.isLoggedIn"> -->
 <div id="navbarContainer">
-    <div class="navbar navbar-dark bg-faded fixed-top justify-content-start">
+	<div class="navbar navbar-dark bg-faded fixed-top justify-content-start">
 		<a class="navbar-brand">
 			<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#navDrawer">
 				<i class="bi bi-list"></i>
 				Degree Planner
 			</button>
 		</a>   
-		<ul class="navbar-nav ms-auto">
-			
-		</ul>
-    </div>
-	
+	<ul class="navbar-nav ms-auto">
+		
+	</ul>
+	</div>
 
-    <div id="navDrawer" class="offcanvas offcanvas-start" tabindex="-1" aria-labelledby="navDrawerTitle">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="navDrawerTitle">Degree Planner</h5>
-            <button type="button" class="btn-close btn-close-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <ul class="list-group">
-            <!-- <a class="list-group-item drawer-item" routerLink="dashboard" data-bs-toggle="offcanvas" data-bs-target="navDrawer"> -->
-            <a class="list-group-item drawer-item" routerLink="dashboard" data-bs-dismiss="offcanvas">
-                <i class="bi bi-house"></i>
-                Main Page
-            </a>
-            <a class="list-group-item drawer-item" routerLink="dashboard" data-bs-dismiss="offcanvas">
-				<i class="bi bi-calendar4"></i>
-                Planner
-            </a>
-            <a class="list-group-item drawer-item" routerLink="dashboard" data-bs-dismiss="offcanvas">
-				<i class="bi bi-journal-text"></i>
-                Manage Credits
-            </a>
-            <a class="list-group-item drawer-item" routerLink="manage-courses" data-bs-dismiss="offcanvas">
-				<i class="bi bi-archive"></i>
-                Course List
-            </a>
-            <!-- <a class="list-group-item drawer-item" routerLink="add-degree" data-bs-dismiss="offcanvas">
-                <i class="bi bi-plus"></i>
-                Add Degree
-            </a> -->
-            <a class="list-group-item drawer-item" (click)="authService.SignOut()" data-bs-dismiss="offcanvas">
-                <i class="bi bi-box-arrow-right"></i>
-                Sign out
-            </a>
-            </ul>
-        </div>
-    </div>
 
+	<div id="navDrawer" class="offcanvas offcanvas-start" tabindex="-1" aria-labelledby="navDrawerTitle">
+		<div class="offcanvas-header">
+			<h5 class="offcanvas-title" id="navDrawerTitle">Degree Planner</h5>
+			<button type="button" class="btn-close btn-close-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<ul class="list-group">
+				<a class="list-group-item drawer-item" routerLink="dashboard" data-bs-dismiss="offcanvas">
+					<i class="bi bi-house"></i>
+					Main Page
+				</a>
+				<a class="list-group-item drawer-item" routerLink="dashboard" data-bs-dismiss="offcanvas">
+					<i class="bi bi-calendar4"></i>
+					Planner
+				</a>
+				<a class="list-group-item drawer-item" routerLink="dashboard" data-bs-dismiss="offcanvas">
+					<i class="bi bi-journal-text"></i>
+					Manage Credits
+				</a>
+				<a class="list-group-item drawer-item" routerLink="manage-courses" data-bs-dismiss="offcanvas">
+					<i class="bi bi-archive"></i>
+					Course List
+				</a>
+				<a class="list-group-item drawer-item" (click)="authService.SignOut()" data-bs-dismiss="offcanvas">
+					<i class="bi bi-box-arrow-right"></i>
+					Sign out
+				</a>
+			</ul>
+		</div>
+	</div>
 </div>

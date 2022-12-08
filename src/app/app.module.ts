@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 import { CoreModule } from './core/core.module';
 import { AuthService } from './core/services/auth/auth.service';
 import { SharedModule } from './shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Features
 
@@ -33,7 +34,8 @@ import { SharedModule } from './shared/shared.module';
 		AngularFireDatabaseModule,
 		AngularFireFunctionsModule,
 		CoreModule,
-		SharedModule
+		SharedModule,
+		BrowserAnimationsModule
 	],
 	providers: [ AuthService ],
 	bootstrap: [AppComponent]

@@ -1,5 +1,174 @@
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+// Palette Generated With:
+// http://mcg.mbitson.com/#!?mcgpalette0=%23800000&mcgpalette1=%23775651&mcgpalette2=%23705c2e&themename=theme
+
+$md-primary: (
+    50 : #f0e0e0,
+    100 : #d9b3b3,
+    200 : #c08080,
+    300 : #a64d4d,
+    400 : #932626,
+    500 : #800000,
+    600 : #780000,
+    700 : #6d0000,
+    800 : #630000,
+    900 : #500000,
+    A100 : #ff8383,
+    A200 : #ff5050,
+    A400 : #ff1d1d,
+    A700 : #ff0303,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$md-secondary: (
+    50 : #efebea,
+    100 : #d6cccb,
+    200 : #bbaba8,
+    300 : #a08985,
+    400 : #8b6f6b,
+    500 : #775651,
+    600 : #6f4f4a,
+    700 : #644540,
+    800 : #5a3c37,
+    900 : #472b27,
+    A100 : #ff9f90,
+    A200 : #ff735d,
+    A400 : #ff472a,
+    A700 : #ff3111,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$md-tertiary: (
+    50 : #eeebe6,
+    100 : #d4cec0,
+    200 : #b8ae97,
+    300 : #9b8d6d,
+    400 : #85744d,
+    500 : #705c2e,
+    600 : #685429,
+    700 : #5d4a23,
+    800 : #53411d,
+    900 : #413012,
+    A100 : #ffcc7d,
+    A200 : #ffb84a,
+    A400 : #ffa417,
+    A700 : #fc9a00,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+
+// $primary-palette: (
+// 	50: #410000,
+// 	100: #690000,
+// 	200: #8F0F07,
+// 	300: #B22B1D,
+// 	400: #D44433,
+// 	500: #F75D49,
+// 	600: #FF8A78,
+// 	700: #FFB4A8,
+// 	800: #FFDAD4,
+// 	900: #FFEDEA,
+// );
+
+// $secondary-palette: (
+// 	50: #2C1512,
+// 	100: #442925,
+// 	200: #5D3F3B,
+// 	300: #775651,
+// 	400: #926F69,
+// 	500: #AE8882,
+// 	600: #CAA29C,
+// 	700: #E7BDB6,
+// 	800: #FFDAD4,
+// 	900: #FFEDEA,
+// );
+
+// $tertiary-palette: (
+// 	50: #251A00,
+// 	100: #3E2E04,
+// 	200: #564419,
+// 	300: #705C2E,
+// 	400: #8A7444,
+// 	500: #A58E5B,
+// 	600: #C1A873,
+// 	700: #DEC48C,
+// 	800: #FBDFA6,
+// 	900: #FFEFD3
+// );
+
+
+// $primary: mat.define-palette($primary-palette, 200);
+// $accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$primary: mat.define-palette($md-primary, 500);
+$accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$theme: mat.define-light-theme((
+	color: (
+		primary: $primary,
+		accent: $accent,
+	),
+	density: 0,
+	typography: mat.define-typography-config(),
+));
+
+// @include mat.core-theme($theme);
+@include mat.all-component-themes($theme);
+
 $nav-color: #800000;
 $text-color: lightgray;
 $background-color: #C4C4C4;
 $text-font-family: sans-serif;
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

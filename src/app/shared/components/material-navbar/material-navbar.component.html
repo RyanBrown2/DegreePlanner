@@ -1,0 +1,45 @@
+<mat-sidenav-container class="sidenav-container">
+	<mat-sidenav #drawer class="sidenav" fixedInViewport
+			[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+			[mode]="(isHandset$ | async) ? 'over' : 'side'"
+			[opened]="(isHandset$ | async) === false">
+		<mat-toolbar>Menu</mat-toolbar>
+		<mat-nav-list>
+			<a mat-list-item routerLink="dashboard">
+				<i class="bi bi-house"></i>
+				Main Page
+			</a>
+			<a mat-list-item routerLink="dashboard">
+				<i class="bi bi-calendar4"></i>
+				Planner
+			</a>
+			<a mat-list-item routerLink="dashboard">
+					<i class="bi bi-journal-text"></i>
+					Manage Credits
+			</a>
+			<a mat-list-item routerLink="manage-courses">
+				<i class="bi bi-archive"></i>
+				Course List
+			</a>
+			<a mat-list-item (click)="authService.SignOut()">
+				<i class="bi bi-box-arrow-right"></i>
+				Sign out
+			</a>
+		</mat-nav-list>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<mat-toolbar color="primary">
+			<button
+				type="button"
+				aria-label="Toggle sidenav"
+				mat-icon-button
+				(click)="drawer.toggle()"
+				*ngIf="isHandset$ | async">
+				<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+			</button>
+			<span>Degree Planner</span>
+		</mat-toolbar>
+		<div>test</div>
+		<!-- Add Content Here -->
+	</mat-sidenav-content>
+</mat-sidenav-container>
