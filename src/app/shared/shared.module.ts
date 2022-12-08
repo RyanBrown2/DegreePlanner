@@ -14,24 +14,22 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MaterialNavbarComponent } from './components/material-navbar/material-navbar.component';
 
 @NgModule({
   declarations: [
 	CourseListComponent,
 	NavbarComponent,
 	NavbarCourseDetailsComponent,
-	MaterialNavbarComponent,
   ],
   imports: [
     CommonModule,
-	RouterModule,
-	LayoutModule,
-	MatToolbarModule,
-	MatButtonModule,
-	MatSidenavModule,
-	MatIconModule,
-	MatListModule,
+		RouterModule,
+		LayoutModule,
+		MatToolbarModule,
+		MatButtonModule,
+		MatSidenavModule,
+		MatIconModule,
+		MatListModule,
   ],
   exports: [
 	CourseListComponent,

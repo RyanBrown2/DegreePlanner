@@ -1,4 +1,7 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from './core/services/auth/auth.service';
 
 @Component({
@@ -8,9 +11,16 @@ import { AuthService } from './core/services/auth/auth.service';
 })
 export class AppComponent {
 	title = 'degree-planner';
+	 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 
 	constructor(
-		public authService: AuthService
+		public authService: AuthService,
+		private breakpointObserver: BreakpointObserver
 	) {}
 
 	setMarginTop() {
