@@ -38,21 +38,51 @@
 		</mat-nav-list>
 	</mat-sidenav>
 	<mat-sidenav-content>
-		<mat-toolbar color="primary">
-			<button
-				type="button"
-				aria-label="Toggle sidenav"
-				mat-icon-button
-				(click)="drawer.toggle()"
-				*ngIf="isHandset$ | async">
-				<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-			</button>
-			<span>Degree Planner</span>
-			<div>
-				test
+		<div [ngSwitch]="getToolbarState()">
+			<div *ngSwitchCase="'main'">
+				<ng-container *ngTemplateOutlet="mainToolbar"></ng-container>
 			</div>
-		</mat-toolbar>
+			<div *ngSwitchCase="'course-details'">
+				<ng-container *ngTemplateOutlet="courseDetailsToolbar"></ng-container>
+			</div>
+		</div>
+
+
 		<router-outlet></router-outlet>
 		<!-- Add Content Here -->
 	</mat-sidenav-content>
 </mat-sidenav-container>
+
+<ng-template #mainToolbar>
+	<mat-toolbar class="mainToolbar" color="primary">
+		<button
+			type="button"
+			aria-label="Toggle sidenav"
+			mat-icon-button
+			(click)="drawer.toggle()"
+			*ngIf="isHandset$ | async">
+			<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+		</button>
+		<span>Degree Planner</span>
+	</mat-toolbar>
+</ng-template>
+
+<ng-template #courseDetailsToolbar>
+	<mat-toolbar class="courseDetailsToolbar" color="primary">
+		<div id="toolbarName">
+		<button
+			type="button"
+			aria-label="Toggle sidenav"
+			mat-icon-button
+			(click)="drawer.toggle()"
+			*ngIf="isHandset$ | async">
+			<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+		</button>
+		<span>Degree Planner</span>
+		</div>
+		
+		<div>
+			<i class="bi bi-three-dots-vertical"></i>
+		</div>
+	</mat-toolbar>
+</ng-template>
