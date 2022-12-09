@@ -14,12 +14,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { ReportCourseDialogComponent } from './components/report-course-dialog/report-course-dialog.component';
 
 @NgModule({
   declarations: [
 	CourseListComponent,
 	NavbarComponent,
 	NavbarCourseDetailsComponent,
+ ReportCourseDialogComponent,
   ],
   imports: [
     CommonModule,

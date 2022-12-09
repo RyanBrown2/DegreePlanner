@@ -6,13 +6,13 @@ import { Subject } from 'rxjs';
 })
 export class NavbarService {
 
-	private courseReportedSource = new Subject<string>();
+	private courseReportedSource = new Subject();
 
 	courseReported$ = this.courseReportedSource.asObservable();
 
 	constructor() { }
 
-	reportCourse(message: string) {
-		this.courseReportedSource.next(message);
+	reportCourse() {
+		this.courseReportedSource.next('');
 	}
 }

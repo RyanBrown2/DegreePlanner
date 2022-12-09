@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CourseService } from 'src/app/core/services/course/course.service';
 import { NavbarService } from 'src/app/core/services/navbar/navbar.service';
+import { ReportCourseDialogComponent } from 'src/app/shared/components/report-course-dialog/report-course-dialog.component';
 import { CoursesRequirement, ReqType } from 'src/app/shared/models/course-requirement.model';
 import { Course } from 'src/app/shared/models/course.model';
 
@@ -27,6 +29,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
+		public dialog: MatDialog,
 		protected sanitizer: DomSanitizer,
 		private courseService: CourseService,
 		private navbarService: NavbarService,
@@ -36,7 +39,13 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 		this.course = new Course();
 
 		this.navbarSubscription = navbarService.courseReported$.subscribe(reportString => {
-			this.processCourseReport(reportString);
+			this.dialog.open(ReportCourseDialogComponent, {
+				data: {
+					title: false,
+					prereqs: false
+				},
+			})
+			// this.processCourseReport(reportString);
 		});
 	}
 
@@ -63,6 +72,10 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.navbarSubscription.unsubscribe();
+	}
+
+	openDialog() {
+
 	}
 
 	processCourseReport(reportString: string) {
@@ -105,5 +118,10 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 		// console.log(elementString);
 		return elementString;
 	}
+
+	reportCourse() {
+
+	}
+
 }
 

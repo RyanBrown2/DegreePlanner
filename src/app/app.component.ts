@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from './core/services/auth/auth.service';
+import { NavbarService } from './core/services/navbar/navbar.service';
 
 const ToolbarState = {
 	hidden: 'hidden',
@@ -27,6 +28,7 @@ export class AppComponent {
 
 	constructor(
 		public authService: AuthService,
+		public navbarService: NavbarService,
 		private breakpointObserver: BreakpointObserver,
 		private router: Router
 	) {}

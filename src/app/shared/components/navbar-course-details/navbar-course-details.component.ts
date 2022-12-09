@@ -31,7 +31,7 @@ export class NavbarCourseDetailsComponent implements OnInit {
 			reportPrereqs = true;
 		}
 
-		this.navbarService.reportCourse(JSON.stringify({title: reportTitle, prereqs: reportPrereqs}));
+		// this.navbarService.reportCourse(JSON.stringify({title: reportTitle, prereqs: reportPrereqs}));
 	}
 
 	nav(dir: string) {
