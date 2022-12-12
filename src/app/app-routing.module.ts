@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './core/guards/auth/auth.guard';
-import { NavbarCourseDetailsComponent } from './shared/components/navbar-course-details/navbar-course-details.component';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/sign-in', pathMatch: 'full'},

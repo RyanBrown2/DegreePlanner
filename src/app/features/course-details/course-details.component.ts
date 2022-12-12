@@ -39,13 +39,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 		this.course = new Course();
 
 		this.navbarSubscription = navbarService.courseReported$.subscribe(reportString => {
-			this.dialog.open(ReportCourseDialogComponent, {
-				data: {
-					title: false,
-					prereqs: false
-				},
-			})
-			// this.processCourseReport(reportString);
+			this.openDialog();
 		});
 	}
 
@@ -75,7 +69,18 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 	}
 
 	openDialog() {
+		const dialogRef = this.dialog.open(ReportCourseDialogComponent, {
+			data: {
+				title: false,
+				prereqs: false
+			},
+		});
 
+		dialogRef.afterClosed().subscribe(data => {
+			if (data != undefined) {
+				this.courseService.reportCourse(this.course, JSON.stringify(data));
+			}
+		});
 	}
 
 	processCourseReport(reportString: string) {
