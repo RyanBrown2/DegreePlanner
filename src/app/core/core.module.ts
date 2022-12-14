@@ -2,6 +2,7 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth/auth.service';
 import { CourseService } from './services/course/course.service';
+import { UserService } from './services/user/user.service';
 
 
 @NgModule({
@@ -9,7 +10,7 @@ import { CourseService } from './services/course/course.service';
 	imports: [
 		CommonModule,
 	],
-	providers: [ AuthService, CourseService ]
+	providers: [ AuthService, CourseService, UserService ]
 })
 export class CoreModule {
 	

@@ -25,6 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { UserService } from './core/services/user/user.service';
 
 
 @NgModule({
@@ -53,7 +54,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 		MatListModule,
 		MatDialogModule
 	],
-	providers: [ AuthService ],
+	providers: [ AuthService, UserService ],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

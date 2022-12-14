@@ -7,7 +7,7 @@ import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { Router } from '@angular/router';
 import { RoseFire, RosefireUser } from './rosefire';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -35,16 +35,17 @@ export class AuthService {
 		this.rosefireKey = callable({ name: `${environment.rosefire}`});
 
 		this.fAuth.authState.subscribe((user) => {
-		if (user) {
-			this.userData = user;
-			localStorage.setItem('user', JSON.stringify(this.userData));
-			if (this.router.url == '/sign-in') {
-				this.router.navigate(['dashboard']);
+			if (user) {
+				this.userData = user;
+				
+				localStorage.setItem('user', JSON.stringify(this.userData));
+				if (this.router.url == '/sign-in') {
+					this.router.navigate(['dashboard']);
+				}
+			} else {
+				localStorage.setItem('user', 'null');
 			}
-		} else {
-			localStorage.setItem('user', 'null');
-		}
-		JSON.parse(localStorage.getItem('user')!);
+			JSON.parse(localStorage.getItem('user')!);
 		});
 	}
 
