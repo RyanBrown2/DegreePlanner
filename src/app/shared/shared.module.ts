@@ -24,8 +24,8 @@ import { ReportCourseDialogComponent } from './components/report-course-dialog/r
 
 @NgModule({
   declarations: [
-	CourseListComponent,
-	ReportCourseDialogComponent,
+		CourseListComponent,
+		ReportCourseDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -43,8 +43,8 @@ import { ReportCourseDialogComponent } from './components/report-course-dialog/r
 		ReactiveFormsModule,
   ],
   exports: [
-	CourseListComponent,
+		CourseListComponent,
   ],
-  providers: [ AuthService ]
+  // providers: [ AuthService ]
 })
 export class SharedModule { }

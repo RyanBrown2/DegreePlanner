@@ -19,7 +19,6 @@ export class UserService {
 	uid: string;
 
   constructor(
-		private authService: AuthService,
 		public firestore: AngularFirestore,
 		@Optional() @SkipSelf() sharedService?: AuthService
 	) { 
@@ -38,12 +37,21 @@ export class UserService {
 		if (uid == null) {
 			uid = this.uid;
 		}
-		console.log(uid);
-		this.userCollection.doc(uid).snapshotChanges().pipe(
-			map(a => {
-				console.log(a);
-			})
-		)
+		// console.log(uid);
+
+		let doc: AngularFirestoreDocument = this.userCollection.doc(uid);
+
+		doc.get().subscribe(ref => {
+			if (!ref.exists) {
+				
+			}
+		});
+
+		// this.userCollection.doc(uid).snapshotChanges().pipe(
+		// 	map(a => {
+		// 		console.log(a);
+		// 	})
+		// )
 		// TODO
 	}
 }
